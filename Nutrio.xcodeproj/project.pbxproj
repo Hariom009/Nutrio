@@ -6,6 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		BFD2E8A82DFC2A6F00DE9F88 /* CountryPicker in Frameworks */ = {isa = PBXBuildFile; productRef = BFD2E8A72DFC2A6F00DE9F88 /* CountryPicker */; };
+		BFD857EA2E013788007BBD95 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = BFD857E92E013788007BBD95 /* FirebaseAuth */; };
+		BFD857EC2E013788007BBD95 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = BFD857EB2E013788007BBD95 /* FirebaseFirestore */; };
+		BFD857EE2E013788007BBD95 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = BFD857ED2E013788007BBD95 /* FirebaseStorage */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		BF3077012DFC073B00AB01FF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -29,9 +36,22 @@
 		BF30770A2DFC073B00AB01FF /* NutrioUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NutrioUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		BF3077422DFC096000AB01FF /* Exceptions for "Nutrio" folder in "Nutrio" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = BF3076F22DFC073A00AB01FF /* Nutrio */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		BF3076F52DFC073A00AB01FF /* Nutrio */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				BF3077422DFC096000AB01FF /* Exceptions for "Nutrio" folder in "Nutrio" target */,
+			);
 			path = Nutrio;
 			sourceTree = "<group>";
 		};
@@ -52,6 +72,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFD2E8A82DFC2A6F00DE9F88 /* CountryPicker in Frameworks */,
+				BFD857EE2E013788007BBD95 /* FirebaseStorage in Frameworks */,
+				BFD857EA2E013788007BBD95 /* FirebaseAuth in Frameworks */,
+				BFD857EC2E013788007BBD95 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +136,10 @@
 			);
 			name = Nutrio;
 			packageProductDependencies = (
+				BFD2E8A72DFC2A6F00DE9F88 /* CountryPicker */,
+				BFD857E92E013788007BBD95 /* FirebaseAuth */,
+				BFD857EB2E013788007BBD95 /* FirebaseFirestore */,
+				BFD857ED2E013788007BBD95 /* FirebaseStorage */,
 			);
 			productName = Nutrio;
 			productReference = BF3076F32DFC073A00AB01FF /* Nutrio.app */;
@@ -195,6 +223,10 @@
 			);
 			mainGroup = BF3076EA2DFC073A00AB01FF;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				BFD2E8A62DFC2A6F00DE9F88 /* XCRemoteSwiftPackageReference "CountryPicker" */,
+				BFD857E82E013788007BBD95 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = BF3076F42DFC073A00AB01FF /* Products */;
 			projectDirPath = "";
@@ -400,11 +432,15 @@
 				DEVELOPMENT_TEAM = LAP54KU2SV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Nutrio/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -412,6 +448,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swiftWithHari.Nutrio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -428,11 +468,15 @@
 				DEVELOPMENT_TEAM = LAP54KU2SV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Nutrio/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -440,6 +484,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swiftWithHari.Nutrio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -558,6 +606,48 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BFD2E8A62DFC2A6F00DE9F88 /* XCRemoteSwiftPackageReference "CountryPicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mobven/CountryPicker.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.3;
+			};
+		};
+		BFD857E82E013788007BBD95 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.14.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BFD2E8A72DFC2A6F00DE9F88 /* CountryPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BFD2E8A62DFC2A6F00DE9F88 /* XCRemoteSwiftPackageReference "CountryPicker" */;
+			productName = CountryPicker;
+		};
+		BFD857E92E013788007BBD95 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BFD857E82E013788007BBD95 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		BFD857EB2E013788007BBD95 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BFD857E82E013788007BBD95 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		BFD857ED2E013788007BBD95 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BFD857E82E013788007BBD95 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BF3076EB2DFC073A00AB01FF /* Project object */;
 }
