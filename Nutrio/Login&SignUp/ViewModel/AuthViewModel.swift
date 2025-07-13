@@ -74,4 +74,11 @@ final class AuthViewModel: ObservableObject{
             isError = true
         }
     }
+    func resetPassword(email: String) async{
+        do{
+            try await auth.sendPasswordReset(withEmail: email)
+        }catch{
+            isError = true
+        }
+    }
 }
