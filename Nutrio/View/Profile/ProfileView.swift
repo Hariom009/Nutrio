@@ -29,7 +29,6 @@ struct ProfileView: View {
                                 .fontWeight(.bold)
                             
                             Text(user.email)
-                              //  .foregroundStyle(.black)
                                 .font(.footnote)
                         
                         }
@@ -37,7 +36,7 @@ struct ProfileView: View {
                 }
                 Section("Accounts"){
                     Button{
-                       // authViewModel.signOut()
+                        authViewModel.signOut()
                     }label: {
                         Label {
                             Text("Sign Out")
@@ -49,9 +48,9 @@ struct ProfileView: View {
 
                     }
                     Button{
-//                        Task{
-//                           await authViewModel.deleteAccount()
-//                        }
+                        Task{
+                           await authViewModel.deleteAccount()
+                        }
                     }label: {
                         ZStack{
                             Label {

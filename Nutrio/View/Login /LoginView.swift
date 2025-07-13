@@ -14,6 +14,7 @@ struct LoginView: View {
     @State var email: String = ""
     @State var password: String = ""
     @EnvironmentObject var authViewModel: AuthViewModel
+    @State private var showcreateAccView = false
     var body: some View {
         ZStack{
             Image("bottom_bg")
@@ -73,7 +74,7 @@ struct LoginView: View {
                         .font(.customfont(.regular, fontSize: 14))
                         .foregroundColor(.primaryText)
                     Button {
-                        
+                        showcreateAccView.toggle()
                     } label: {
                         Text("Sign Up")
                             .foregroundColor(.primaryApp)
@@ -102,6 +103,9 @@ struct LoginView: View {
             }
             .padding(.top,.topInsets)
             .padding(.horizontal,20)
+        }
+        .sheet(isPresented: $showcreateAccView){
+            CreateAccountView()
         }
         .background(Color.white)
         .navigationTitle("")

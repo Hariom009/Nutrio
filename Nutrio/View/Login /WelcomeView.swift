@@ -52,6 +52,7 @@ struct WelcomeView: View {
                         .background(Color.primaryApp)
                         .cornerRadius(20)
                 }
+                .navigationBarBackButtonHidden(true)
                 Spacer()
                     .frame(height: 80)
             }
