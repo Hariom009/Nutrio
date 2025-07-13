@@ -11,22 +11,47 @@ import UIKit
 
 
 class AppDelegate: NSObject, UIApplicationDelegate {
-  func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-    FirebaseApp.configure()
-    return true
-  }
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        return true
+    }
 }
 @main
 struct NutrioApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject private var authViewModel = AuthViewModel()
+    @ObservedObject var router = Router()
+    @State private var newUser: Bool = true
     var body: some Scene {
         WindowGroup {
-            NavigationView{
-                ContentView()
-                    .environmentObject(authViewModel)
+            NavigationStack(path: $router.navPath){
+                Group{
+                    if newUser {
+                        ContentView()
+                    }else{
+                        SignInView()
+                    }
+                }
+                .navigationDestination(for: Router.AuthFlow.self) { destinatiom in
+                    switch destinatiom {
+                    case .welcomescreen: WelcomeView()
+                    case .loginhome: SignInView()
+                    case .loginemail: LoginView()
+                    case .createAccount: CreateAccountView()
+                    case .forgotPassword: ResetPasswordView()
+                    case .profile: ProfileView()
+                    case .emailSent: EmailSentView()
+                    case .home: HomeView()
+                        
+                    }
+                }
             }
+            .onAppear {
+                newUser = false
+            }
+            .environmentObject(authViewModel)
+            .environmentObject(router)
         }
     }
 }

@@ -9,9 +9,8 @@ import SwiftUI
 
 struct ResetPasswordView: View {
     @State var email:String = ""
-    @State var isEmailSent = false
     @EnvironmentObject var authViewModel:AuthViewModel
-   
+    @EnvironmentObject var router: Router
     var body: some View {
         VStack{
             VStack(alignment: .leading, spacing: 16){
@@ -31,7 +30,9 @@ struct ResetPasswordView: View {
                 Task{
                     await authViewModel.resetPassword(email: email)
                     if !authViewModel.isError{
-                        isEmailSent = true
+                        router.navigate(to: .emailSent)
+                    }else{
+                        print("error is here ")
                     }
                 }
             }label:{
@@ -48,9 +49,6 @@ struct ResetPasswordView: View {
         }
         .padding()
         .toolbarRole(.editor)
-        .navigationDestination(isPresented: $isEmailSent){
-            EmailSentView()
-        }
     }
 }
 

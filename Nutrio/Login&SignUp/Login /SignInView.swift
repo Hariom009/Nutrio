@@ -11,10 +11,9 @@ import CountryPicker
 struct SignInView: View {
     @State var txtMobile: String = ""
     @State var isShowPicker: Bool = false
-    @State var showCreateAccount = false
-    @State var openLoginview = false
     @State var countryObj: Country?
     @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var router: Router
     var body: some View {
         ZStack{
             Image("bottom_bg")
@@ -54,16 +53,8 @@ struct SignInView: View {
                     }
                     Divider()
                         .padding(.bottom, 25)
-                    Button{
-                        openLoginview.toggle()
-                    }label: {
-                        Text("or login with email")
-                            .font(.customfont(.medium, fontSize: 14))
-                            .foregroundColor(.primaryText)
-                            .multilineTextAlignment(.center)
-                            .frame(minWidth: 0,maxWidth: .infinity,alignment: .center)
-                            .padding(.bottom,25)
-                    }
+                   // Login WIth Email Button ...
+                    loginWithEmail
                         Button{
                             
                         }label: {
@@ -101,12 +92,8 @@ struct SignInView: View {
                         Spacer()
                         Text("Don't have an account?")
                             .font(.caption)
-                        Button{
-                          showCreateAccount = true
-                        }label: {
-                           Text("Sign Up")
-                            .font(.headline)
-                        }
+                        // Create account
+                        CreateAccountView
                         Spacer()
                     }
                 }
@@ -114,8 +101,6 @@ struct SignInView: View {
                 .padding(.horizontal,20)
                 .frame(width: .screenWidth, alignment: .leading)
                 .padding(.top, .topInsets + .screenWidth)
-            
-                
             }
             
         }
@@ -129,15 +114,27 @@ struct SignInView: View {
         .sheet(isPresented: $isShowPicker){
             CountryPickerUI(country: $countryObj)
         }
-        .sheet(isPresented: $showCreateAccount){
-            CreateAccountView()
-                .environmentObject(authViewModel)
-        }
-        .sheet(isPresented: $openLoginview){
-            LoginView()
-                .environmentObject(authViewModel)
-        }
      
+    }
+    private var CreateAccountView: some View {
+        Button{
+            router.navigate(to: .createAccount)
+        }label: {
+           Text("Sign Up")
+            .font(.headline)
+        }
+    }
+    private var loginWithEmail: some View{
+        Button{
+            router.navigate(to: .loginemail)
+        }label: {
+            Text("or login with email")
+                .font(.customfont(.medium, fontSize: 14))
+                .foregroundColor(.primaryText)
+                .multilineTextAlignment(.center)
+                .frame(minWidth: 0,maxWidth: .infinity,alignment: .center)
+                .padding(.bottom,25)
+        }
     }
 }
 

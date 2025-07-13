@@ -14,9 +14,9 @@ struct LoginView: View {
     @State var email: String = ""
     @State var password: String = ""
     @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var router: Router
     @State private var showcreateAccView = false
     var body: some View {
-        NavigationStack{
             ZStack{
                 Image("bottom_bg")
                     .resizable()
@@ -49,31 +49,15 @@ struct LoginView: View {
                     forgotButton
                         .padding(.bottom,.screenWidth * 0.05)
                     
-                    Button{
-                        Task{
-                            await authViewModel.login(email: loginVM.txtEmail, password: loginVM.txtPassword)
-                        }
-                    }label: {
-                        Text("Login")
-                            .foregroundStyle(.white)
-                            .padding(.horizontal,80)
-                            .padding(.vertical,20)
-                            .background(
-                                RoundedRectangle(cornerRadius: 18)
-                                    .foregroundColor(.primaryApp)
-                            )
-                    }
+                    loginButton
                     
                     HStack{
                         Text("Don't have an Account?")
                             .font(.customfont(.regular, fontSize: 14))
                             .foregroundColor(.primaryText)
-                        Button {
-                            showcreateAccView.toggle()
-                        } label: {
-                            Text("Sign Up")
-                                .foregroundColor(.primaryApp)
-                        }
+                        
+                        // Create Account Button
+                        signUpButton
                         
                     }
                     
@@ -99,30 +83,55 @@ struct LoginView: View {
                 .padding(.top,.topInsets)
                 .padding(.horizontal,20)
             }
-            .sheet(isPresented: $showcreateAccView){
-                CreateAccountView()
-            }
             .background(Color.white)
             .navigationTitle("")
             .navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
+            .ignoresSafeArea()
         }
-        .ignoresSafeArea()
+    private var loginButton:some View{
+        Button{
+            Task{
+                await authViewModel.login(email: loginVM.txtEmail, password: loginVM.txtPassword)
+            }
+            if !authViewModel.isError{
+                router.navigate(to: .profile)
+            }
+        }label: {
+            Text("Login")
+                .foregroundStyle(.white)
+                .padding(.horizontal,80)
+                .padding(.vertical,20)
+                .background(
+                    RoundedRectangle(cornerRadius: 18)
+                        .foregroundColor(.primaryApp)
+                )
+        }
     }
     private var forgotButton: some View{
         HStack{
             Spacer()
-            NavigationLink {
-                ResetPasswordView()
-                    .environmentObject(authViewModel)
-            }label: {
+            
+            Button  {
+                router.navigate(to: .forgotPassword)
+            } label: {
                 Text("Forgot Password?")
                 .font(.customfont(.regular, fontSize: 14))
                 .foregroundColor(.primaryText)
                 .fontWeight(.medium)
             }
 
+
         }
+    }
+    private var signUpButton: some View{
+        Button {
+            router.navigate(to: .createAccount)
+        } label: {
+            Text("Sign Up")
+                .foregroundColor(.primaryApp)
+        }
+
     }
 }
 

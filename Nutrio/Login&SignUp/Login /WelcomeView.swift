@@ -10,6 +10,7 @@ import SwiftUI
 struct WelcomeView: View {
     @State private var navigate = false
     @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var router: Router
     var body: some View {
         ZStack{
             Image("welcom_bg")
@@ -36,23 +37,7 @@ struct WelcomeView: View {
                     .multilineTextAlignment(.center)
                     .padding(.bottom,30)
                 
-                NavigationLink{
-                    Group{
-                        if authViewModel.userSession == nil{
-                            SignInView()
-                        }else {
-                            ProfileView()
-                        }
-                    }
-                    .environmentObject(authViewModel)
-                }label: {
-                    Text("Get Started")
-                        .foregroundStyle(.white)
-                        .frame(minWidth: 0,maxWidth: .infinity,minHeight: 60,maxHeight: 60)
-                        .background(Color.primaryApp)
-                        .cornerRadius(20)
-                }
-                .navigationBarBackButtonHidden(true)
+                StartButton
                 Spacer()
                     .frame(height: 80)
             }
@@ -63,11 +48,26 @@ struct WelcomeView: View {
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
     }
-}
-
-#Preview {
-    NavigationView{
-        WelcomeView()
-            .environmentObject(AuthViewModel())
+    private var StartButton: some View{
+        Button {
+            if authViewModel.userSession == nil{
+                router.navigate(to: .loginhome)
+            }else {
+                router.navigate(to: .profile)
+            }
+        } label: {
+            Text("Get Started")
+                .foregroundStyle(.white)
+                .frame(minWidth: 0,maxWidth: .infinity,minHeight: 60,maxHeight: 60)
+                .background(Color.primaryApp)
+                .cornerRadius(20)
+        }
     }
 }
+    
+    #Preview {
+        NavigationView{
+            WelcomeView()
+                .environmentObject(AuthViewModel())
+        }
+    }

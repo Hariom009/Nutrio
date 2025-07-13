@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EmailSentView: View {
-    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var router: Router
     var body: some View {
         VStack{
             VStack(spacing: 24){
@@ -25,7 +25,7 @@ struct EmailSentView: View {
             }
             .padding()
             Button{
-                
+                router.navigateToRoot()
             }label: {
                 Text("Skip,I'll confirm later")
                     .foregroundStyle(.white)
@@ -45,7 +45,7 @@ struct EmailSentView: View {
                     Text("filter, or")
                         .font(.subheadline)
                     Button{
-                        dismiss()
+                        router.navigateBack()
                         print("TRy another tapped ")
                     }label: {
                         Text("try another email adddress")

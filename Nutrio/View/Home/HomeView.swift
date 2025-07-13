@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @State private var searchProduct: String = ""
     @StateObject var HomeVM = HomeViewModel.shared
+    @EnvironmentObject var router: Router
     var body: some View {
         ScrollView{
             VStack(spacing: 20) {

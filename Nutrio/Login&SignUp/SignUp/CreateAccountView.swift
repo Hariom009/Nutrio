@@ -11,7 +11,7 @@ struct CreateAccountView: View {
     @State private var confirmpassword: String = ""
     @EnvironmentObject var authViewModel: AuthViewModel // yha use krna pdega state object
     @Environment(\.dismiss) var dismiss
-    
+    @EnvironmentObject var router: Router
     //@EnvironmentObject var router: Router
     var body: some View {
             VStack(spacing:16){
@@ -42,28 +42,7 @@ struct CreateAccountView: View {
                     }
                 }
                 Spacer()
-                Button{
-                    Task{
-                        await authViewModel.createUser(
-                            email: email,
-                            fullName: fullName,
-                            password: password
-                        )
-//                        if !authViewModel.isError{
-//                            router.navigateBack()
-//                        }
-                    }
-                    dismiss()
-                }label: {
-                    Text("Create Account")
-                        .foregroundStyle(.white)
-                        .padding(.horizontal,40)
-                        .padding(.vertical,20)
-                        .background(
-                            RoundedRectangle(cornerRadius: 18)
-                                .foregroundColor(.primaryApp)
-                        )
-                }
+                CreateAccountButton
                 
             }
             .navigationTitle("Set up your account")
@@ -73,6 +52,30 @@ struct CreateAccountView: View {
         var isValidPassword : Bool{
             confirmpassword == password
         }
+    private var CreateAccountButton:some View{
+        Button{
+            Task{
+                await authViewModel.createUser(
+                    email: email,
+                    fullName: fullName,
+                    password: password
+                )
+                await authViewModel.login(email :email,password: password)
+            }
+            if !authViewModel.isError{
+                router.navigate(to: .profile)
+            }
+        }label: {
+            Text("Create Account")
+                .foregroundStyle(.white)
+                .padding(.horizontal,40)
+                .padding(.vertical,20)
+                .background(
+                    RoundedRectangle(cornerRadius: 18)
+                        .foregroundColor(.primaryApp)
+                )
+        }
+    }
     }
 
 #Preview {
