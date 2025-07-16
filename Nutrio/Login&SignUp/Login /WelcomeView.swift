@@ -11,6 +11,7 @@ struct WelcomeView: View {
     @State private var navigate = false
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var router: Router
+    @Binding var newUser: Bool
     var body: some View {
         ZStack{
             Image("welcom_bg")
@@ -53,8 +54,9 @@ struct WelcomeView: View {
             if authViewModel.userSession == nil{
                 router.navigate(to: .loginhome)
             }else {
-                router.navigate(to: .profile)
+                router.navigate(to: .home)
             }
+            newUser = false
         } label: {
             Text("Get Started")
                 .foregroundStyle(.white)
@@ -67,7 +69,7 @@ struct WelcomeView: View {
     
     #Preview {
         NavigationView{
-            WelcomeView()
+            WelcomeView(newUser: .constant(false))
                 .environmentObject(AuthViewModel())
         }
     }

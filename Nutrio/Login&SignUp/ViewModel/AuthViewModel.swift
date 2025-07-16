@@ -18,8 +18,15 @@ final class AuthViewModel: ObservableObject{
     private let firestore = Firestore.firestore()
     
     init(){
-        
+        setupAuthStateListener()
     }
+    // No need to login again and again it handles the logged in user till user signs Out or delete Account
+    private func setupAuthStateListener() {
+        Auth.auth().addStateDidChangeListener { _, user in
+            self.userSession = user
+        }
+    }
+    
     func createUser(email: String, fullName: String, password: String) async {
         do{
             let authResult = try await auth.createUser(withEmail: email, password: password)

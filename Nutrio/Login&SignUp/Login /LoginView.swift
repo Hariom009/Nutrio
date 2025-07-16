@@ -95,7 +95,7 @@ struct LoginView: View {
                 await authViewModel.login(email: loginVM.txtEmail, password: loginVM.txtPassword)
             }
             if !authViewModel.isError{
-                router.navigate(to: .profile)
+                router.navigate(to: .home)
             }
         }label: {
             Text("Login")

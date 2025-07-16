@@ -22,20 +22,21 @@ struct NutrioApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject private var authViewModel = AuthViewModel()
     @ObservedObject var router = Router()
-    @State private var newUser: Bool = true
+    @AppStorage("newUser") var newUser: Bool = true
+
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router.navPath){
                 Group{
                     if newUser {
-                        ContentView()
+                       WelcomeView(newUser: $newUser)
                     }else{
-                        SignInView()
+                        HomeView()
                     }
                 }
                 .navigationDestination(for: Router.AuthFlow.self) { destinatiom in
                     switch destinatiom {
-                    case .welcomescreen: WelcomeView()
+                    case .welcomescreen: WelcomeView(newUser: $newUser)
                     case .loginhome: SignInView()
                     case .loginemail: LoginView()
                     case .createAccount: CreateAccountView()
@@ -46,9 +47,6 @@ struct NutrioApp: App {
                         
                     }
                 }
-            }
-            .onAppear {
-                newUser = false
             }
             .environmentObject(authViewModel)
             .environmentObject(router)
