@@ -31,7 +31,7 @@ struct NutrioApp: App {
                     if newUser {
                        WelcomeView(newUser: $newUser)
                     }else{
-                        HomeView()
+                        MainTabView()
                     }
                 }
                 .navigationDestination(for: Router.AuthFlow.self) { destinatiom in
@@ -43,7 +43,7 @@ struct NutrioApp: App {
                     case .forgotPassword: ResetPasswordView()
                     case .profile: ProfileView()
                     case .emailSent: EmailSentView()
-                    case .home: HomeView()
+                    case .home: MainTabView()
                         
                     }
                 }
