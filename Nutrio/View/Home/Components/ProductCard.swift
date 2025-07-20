@@ -8,43 +8,51 @@
 import SwiftUI
 
 struct ProductCard: View {
-    @Binding var imagename: String
-    @Binding var title:String
-    @Binding var amount: String
-    @Binding var price: Double
+     var imagename: String
+     var title:String
+     var amount: Int
+     var price: Double
     var body: some View {
+        
         VStack(spacing: 20){
-            Image("\(imagename)")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 100,height: 100)
-            VStack(alignment: .leading, spacing: 8){
-               Text(title)
-                    .font(.system(size: 16,weight: .semibold))
-               Text("\(amount), Price")
-                    .font(.caption)
-                
-            }
-            HStack(spacing: 35){
-                Text("$\(price,specifier: "%.2f")")
+                Image("\(imagename)")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 99,height: 79)
+            VStack(alignment: .leading,spacing: 20){
+                VStack(alignment: .leading, spacing: 8){
+                    Text(title)
+                        .font(.system(size: 16,weight: .semibold))
+                    Text("\(amount) pcs, Price")
+                        .font(.caption)
                     
-                    .font(.system(size: 14,weight: .bold,design: .rounded))
-                Button{
+                }
+                HStack(spacing: 35){
+                    Text("$\(price,specifier: "%.2f")")
                     
-                }label: {
-                    Image(systemName: "plus")
-                        .padding(12)
-                        .foregroundStyle(.white)
-                        .background(
-                            RoundedRectangle(cornerRadius: 18)
-                                .fill(Color.primaryApp)
-                        )
+                        .font(.system(size: 18,weight: .bold,design: .rounded))
+                    Button{
+                        
+                    }label: {
+                        Image(systemName: "plus")
+                            .frame(width: 45,height: 45)
+                            .foregroundStyle(.white)
+                            .background(
+                                RoundedRectangle(cornerRadius: 18)
+                                    .fill(Color.primaryApp)
+                            )
+                    }
                 }
             }
         }
+        .frame(width: 173, height: 249)
+        .background(
+            RoundedRectangle(cornerRadius: 18)
+                .stroke(lineWidth: 0.2)
+        )
     }
 }
 
 #Preview {
-    ProductCard(imagename:.constant("banana"),title: .constant("Organic Bananas"), amount: .constant("7 pcs"), price: .constant(4.99))
+    ProductCard(imagename:"Organic Bananas",title:"Organic Bananas", amount: 7, price:4.99)
 }
