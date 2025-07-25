@@ -16,9 +16,8 @@ struct WelcomeView: View {
         ZStack{
             Image("welcom_bg")
                 .resizable()
-                .scaledToFill()
                 .frame(width: .screenWidth, height: .screenHeight)
-            
+                .scaledToFill()
             VStack{
                 Spacer()
                 Image("app_logo")

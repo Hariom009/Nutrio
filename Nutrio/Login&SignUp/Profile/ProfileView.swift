@@ -66,9 +66,14 @@ struct ProfileView: View {
                 }
             }
             else if (authViewModel.userSession != nil){
-                ProgressView("Please Wait")
+                VStack{
+                    Spacer()
+                    ProgressView("Please Wait")
+                    Spacer()
+                }
             }
         }
+        .navigationBarBackButtonHidden(true)
         .onAppear {
             if authViewModel.currentUser == nil, let uid = authViewModel.userSession?.uid {
                 Task { await authViewModel.fetchUser(by: uid) }

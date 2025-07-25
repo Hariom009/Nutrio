@@ -53,11 +53,11 @@ struct CustomMiniTabBar: View {
         HStack(spacing: 0) {
             // Left side tabs
             HStack(spacing: 16) {
-                tabItem(icon: "house", title: "Shop", tab: .home)
-                tabItem(icon: "text.magnifyingglass", title: "Explore", tab: .search)
-                tabItem(icon: "cart", title: "Cart", tab: .cart)
-                tabItem(icon: "heart", title: "Favourite", tab: .favourite)
-                tabItem(icon: "person", title: "Account", tab: .profile)
+                tabItem(icon: "store_tab", title: "Shop", tab: .home)
+                tabItem(icon: "explore_tab", title: "Explore", tab: .search)
+                tabItem(icon: "cart_tab", title: "Cart", tab: .cart)
+                tabItem(icon: "fav_tab", title: "Favourite", tab: .favourite)
+                tabItem(icon: "account_tab", title: "Account", tab: .profile)
             }
             .frame(maxWidth: .infinity)
         }
@@ -69,19 +69,21 @@ struct CustomMiniTabBar: View {
             selectedTab = tab
         }) {
             VStack(spacing: 6) {
-                Image(systemName: icon)
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundColor(selectedTab == tab ? .indigo : .gray)
+                Image("\(icon)")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 20, height: 20)
+                    .foregroundColor(selectedTab == tab ? .green : .gray)
                 Text(title)
                     .font(.system(size: 8, weight: .medium))
-                    .foregroundColor(selectedTab == tab ? .indigo : .gray)
+                    .foregroundColor(selectedTab == tab ? .green : .gray)
                     .lineLimit(1)
             }
             .padding(.vertical, 8)
             .padding(.horizontal, 12)
             .background(
                 RoundedRectangle(cornerRadius: 12)
-                    .fill(selectedTab == tab ? .indigo.opacity(0.1) : .clear)
+                    .fill(selectedTab == tab ? .green.opacity(0.15) : .clear)
             )
         }
         .buttonStyle(PlainButtonStyle())

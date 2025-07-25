@@ -6,14 +6,24 @@
 //
 
 import SwiftUI
+import CoreLocation
 
+
+struct Grocery: Hashable{
+    let id = UUID()
+    var name: String
+    var color: Color
+}
 struct HomeView: View {
     @State private var searchProduct: String = ""
     @StateObject var HomeVM = HomeViewModel.shared
     @EnvironmentObject var router: Router
-    let bannerImages = ["banner_top","banner_top","banner_top"]
+    @StateObject private var locationManager = LocationManager()
+    @State private var showPermissionAlert = false
+    let bannerImages = ["banner_top"]
     let ExclusiveOffer = ["Organic Bananas", "Red Apple","Pepsi Can", "Broiler Chicken"]
     let BestSelling = [ "Ginger", "Bell Pepper Red", "Egg Chicken Red"]
+    let groceries = [Grocery(name: "Pulses", color: .orange), Grocery(name: "Rice", color: .green)]
     var body: some View {
         ScrollView{
             VStack(spacing: 20) {
@@ -22,37 +32,36 @@ struct HomeView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 30,height: 30)
-                    HStack{
+                    HStack {
                         Image("location")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 20,height: 19)
-                        Text("Dhaka, Banassre")
-                            .font(.customfont(.regular, fontSize: 18))
+                            .frame(width: 20, height: 19)
+
+                        if let placemark = locationManager.placemark {
+                            Text("\(placemark.locality ?? ""), \(placemark.administrativeArea ?? "")")
+                                .font(.customfont(.regular, fontSize: 18))
+                        } else {
+                            Text("Getting location...")
+                                .font(.customfont(.regular, fontSize: 18))
+                                .foregroundColor(.gray)
+                        }
                     }
                 }
             }
-            ZStack{
-                HStack(spacing: 8){
-                    Image(systemName: "magnifyingglass")
-                    TextField("Search Store", text: $searchProduct)
-                        .padding(.horizontal,12)
-                }.padding()
-                .background(RoundedRectangle(cornerRadius: 18).fill(Color.gray.opacity(0.2)))
-            }.padding()
             
             ScrollView(.horizontal, showsIndicators: false){
                 HStack{
                     ForEach(bannerImages, id: \.self){
                         Image($0)
                             .resizable()
-                            .frame(width:320,height: 120)
+                            .frame(width:385,height: 145)
                             .scaledToFit()
                             .padding(.leading,4)
                     }
                 }
             }
-           // Exclusive Offers...
+            // Exclusive Offers...
             VStack(alignment: .leading){
                 HStack{
                     Text("Exclusive offers")
@@ -67,7 +76,7 @@ struct HomeView: View {
                             .foregroundStyle(Color.primaryApp)
                             .font(.custom("Gilroy", size: 16))
                     }
-
+                    
                 }.padding()
                 ScrollView(.horizontal, showsIndicators: false){
                     // Here we add some prelisted products using product card
@@ -96,7 +105,7 @@ struct HomeView: View {
                             .foregroundStyle(Color.primaryApp)
                             .font(.custom("Gilroy", size: 16))
                     }
-
+                    
                 }.padding()
                 ScrollView(.horizontal, showsIndicators: false){
                     // Here we add some prelisted products using product card
@@ -109,8 +118,62 @@ struct HomeView: View {
                 }
                 .padding()
             }
+            //Groceries ...
+            VStack(alignment: .leading){
+                HStack{
+                    Text("Groceries")
+                        .font(.customfont(.medium, fontSize: 24))
+                    Spacer()
+                    Button {
+                        print("See all in Groceries pressed")
+                        
+                    } label: {
+                        Text("See all")
+                            .foregroundStyle(Color.primaryApp)
+                            .font(.custom("Gilroy", size: 16))
+                    }
+                    
+                }.padding()
+                ScrollView(.horizontal, showsIndicators: false){
+                    // Here we add some prelisted products using product card
+                    HStack(spacing: 8){
+                        ForEach(groceries, id: \.self){ item in
+                            GroceryCard(text: "\(item.name)", image: "\(item.name.lowercased())", colour: item.color.opacity(0.5)
+                            )
+                        }
+                    }
+                    
+                }
+                .padding()
+            }
         }
         .navigationBarBackButtonHidden(true)
+        .onAppear {
+            locationManager.checkPermissionStatus()
+        }
+        .onReceive(locationManager.$isPermissionDenied) { denied in
+            if denied {
+                showPermissionAlert = true
+            }
+        }
+        .onReceive(locationManager.$isPermissionNotDetermined) { notDetermined in
+            if notDetermined {
+                locationManager.requestLocationPermission()
+            }
+        }
+
+
+        .alert("Location Permission Needed", isPresented: $showPermissionAlert) {
+            Button("Open Settings") {
+                if let url = URL(string: UIApplication.openSettingsURLString),
+                   UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.open(url)
+                }
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("Please allow location access in Settings to use this feature.")
+        }
     }
 }
 

@@ -1,22 +1,19 @@
-//
-//  Product.swift
-//  Nutrio
-//
-//  Created by Hari's Mac on 20.07.2025.
-//
+
 
 import Foundation
 import SwiftUI
 
-struct Product: Identifiable{
+struct Product: Identifiable, Hashable{
     var id: ObjectIdentifier
     let name: String
     let price: Double
-    let amount: Int
+    let amount: String
     let image: String
     let ProductType: String
-    let subCategory:String
-    init(id: ObjectIdentifier, name: String, price: Double, amount: Int, image: String, ProductType: String, subCategory:String) {
+    let subCategory: String
+    var favourite: Bool  // ✅ Newly added
+
+    init(id: ObjectIdentifier, name: String, price: Double, amount: String, image: String, ProductType: String, subCategory: String, favourite: Bool) {
         self.id = id
         self.name = name
         self.price = price
@@ -24,5 +21,6 @@ struct Product: Identifiable{
         self.image = image
         self.ProductType = ProductType
         self.subCategory = subCategory
+        self.favourite = favourite
     }
 }
