@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF91BE092E37EB1C00D31A83 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = BF91BE082E37EB1C00D31A83 /* GoogleSignIn */; };
+		BF91BE0B2E37EB1C00D31A83 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BF91BE0A2E37EB1C00D31A83 /* GoogleSignInSwift */; };
 		BFD2E8A82DFC2A6F00DE9F88 /* CountryPicker in Frameworks */ = {isa = PBXBuildFile; productRef = BFD2E8A72DFC2A6F00DE9F88 /* CountryPicker */; };
 		BFD857EA2E013788007BBD95 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = BFD857E92E013788007BBD95 /* FirebaseAuth */; };
 		BFD857EC2E013788007BBD95 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = BFD857EB2E013788007BBD95 /* FirebaseFirestore */; };
@@ -72,8 +74,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF91BE092E37EB1C00D31A83 /* GoogleSignIn in Frameworks */,
 				BFD2E8A82DFC2A6F00DE9F88 /* CountryPicker in Frameworks */,
 				BFD857EE2E013788007BBD95 /* FirebaseStorage in Frameworks */,
+				BF91BE0B2E37EB1C00D31A83 /* GoogleSignInSwift in Frameworks */,
 				BFD857EA2E013788007BBD95 /* FirebaseAuth in Frameworks */,
 				BFD857EC2E013788007BBD95 /* FirebaseFirestore in Frameworks */,
 			);
@@ -140,6 +144,8 @@
 				BFD857E92E013788007BBD95 /* FirebaseAuth */,
 				BFD857EB2E013788007BBD95 /* FirebaseFirestore */,
 				BFD857ED2E013788007BBD95 /* FirebaseStorage */,
+				BF91BE082E37EB1C00D31A83 /* GoogleSignIn */,
+				BF91BE0A2E37EB1C00D31A83 /* GoogleSignInSwift */,
 			);
 			productName = Nutrio;
 			productReference = BF3076F32DFC073A00AB01FF /* Nutrio.app */;
@@ -226,6 +232,7 @@
 			packageReferences = (
 				BFD2E8A62DFC2A6F00DE9F88 /* XCRemoteSwiftPackageReference "CountryPicker" */,
 				BFD857E82E013788007BBD95 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				BF91BE072E37EB1C00D31A83 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = BF3076F42DFC073A00AB01FF /* Products */;
@@ -610,6 +617,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		BF91BE072E37EB1C00D31A83 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
 		BFD2E8A62DFC2A6F00DE9F88 /* XCRemoteSwiftPackageReference "CountryPicker" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mobven/CountryPicker.git";
@@ -629,6 +644,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		BF91BE082E37EB1C00D31A83 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BF91BE072E37EB1C00D31A83 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		BF91BE0A2E37EB1C00D31A83 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BF91BE072E37EB1C00D31A83 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
 		BFD2E8A72DFC2A6F00DE9F88 /* CountryPicker */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BFD2E8A62DFC2A6F00DE9F88 /* XCRemoteSwiftPackageReference "CountryPicker" */;

@@ -1,19 +1,16 @@
-//
-//  AuthViewModel.swift
-//  Nutrio
-//
-//  Created by Hari's Mac on 17.06.2025.
-//
-
 import SwiftUI
+import Firebase
 import FirebaseFirestore // for storage
 import FirebaseAuth // for auth
+import GoogleSignIn
+import GoogleSignInSwift
 
 @MainActor
 final class AuthViewModel: ObservableObject{
     @Published var userSession: FirebaseAuth.User? // firebase wala user
     @Published var currentUser: User? // apna wala user
     @Published var isError : Bool = false
+    @Published var isLoading: Bool = false
     private let auth = Auth.auth()
     private let firestore = Firestore.firestore()
     
@@ -63,6 +60,7 @@ final class AuthViewModel: ObservableObject{
         }
     }
     func signOut(){
+        isLoading = true
         do{
            userSession = nil
             currentUser = nil
@@ -70,8 +68,10 @@ final class AuthViewModel: ObservableObject{
         }catch{
           isError = true
         }
+        isLoading = false
     }
     func deleteAccount() async{
+        isLoading = true
         do{
             try await auth.currentUser?.delete()
             try await firestore.collection("users").document(currentUser!.uid).delete()
@@ -80,6 +80,7 @@ final class AuthViewModel: ObservableObject{
         }catch{
             isError = true
         }
+        isLoading = false
     }
     func resetPassword(email: String) async{
         do{
@@ -87,5 +88,50 @@ final class AuthViewModel: ObservableObject{
         }catch{
             isError = true
         }
+    }
+    func signInWithGoogle(presentingViewController: UIViewController) async {
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+        
+        isLoading = true
+
+        do {
+            let result = try await GIDSignIn.sharedInstance.signIn(withPresenting: presentingViewController)
+            guard let idToken = result.user.idToken?.tokenString else { return }
+
+            let credential = GoogleAuthProvider.credential(
+                withIDToken: idToken,
+                accessToken: result.user.accessToken.tokenString
+            )
+
+            let authResult = try await auth.signIn(with: credential)
+            userSession = authResult.user
+
+            let uid = authResult.user.uid
+            let email = authResult.user.email ?? ""
+            let name = authResult.user.displayName ?? ""
+
+            let docRef = firestore.collection("users").document(uid)
+            let document = try await docRef.getDocument()
+
+            if !document.exists {
+                //  Create Firestore user document if missing
+                let newUser = User(uid: uid, email: email, fullname: name)
+                try docRef.setData(from: newUser)
+            }
+
+            // Now fetch the user safely
+            await fetchUser(by: uid)
+
+            print("Google Sign-In success: \(email)")
+
+        } catch {
+            print("Google Sign-In failed: \(error.localizedDescription)")
+            isError = true
+        }
+        
+        isLoading = false
     }
 }

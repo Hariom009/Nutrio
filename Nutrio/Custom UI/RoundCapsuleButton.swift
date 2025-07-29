@@ -12,7 +12,7 @@ struct RoundCapsuleButton: View {
     var body: some View {
         Text("\(title)")
             .foregroundStyle(.white)
-            .padding(.horizontal,.screenWidth - 270)
+            .padding(.horizontal,150)
             .padding(.vertical,20)
             .background(
                 RoundedRectangle(cornerRadius: 18)

@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
-import FirebaseCore
 import UIKit
+import FirebaseCore
+import FirebaseAuth
+import GoogleSignIn
 
 
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -16,6 +18,13 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         FirebaseApp.configure()
         return true
     }
+    
+    @available(iOS 9.0, *)
+     func application(_ application: UIApplication, open url: URL,
+                      options: [UIApplication.OpenURLOptionsKey: Any])
+       -> Bool {
+       return GIDSignIn.sharedInstance.handle(url)
+     }
 }
 @main
 struct NutrioApp: App {
@@ -51,5 +60,15 @@ struct NutrioApp: App {
             .environmentObject(authViewModel)
             .environmentObject(router)
         }
+    }
+}
+
+extension View {
+    func getRootViewController() -> UIViewController? {
+        guard let screen = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let root = screen.windows.first?.rootViewController else {
+            return nil
+        }
+        return root
     }
 }

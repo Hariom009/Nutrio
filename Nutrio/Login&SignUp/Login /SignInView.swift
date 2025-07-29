@@ -53,41 +53,49 @@ struct SignInView: View {
                     }
                     Divider()
                         .padding(.bottom, 25)
-                   // Login WIth Email Button ...
+                    // Login WIth Email Button ...
                     loginWithEmail
-                        Button{
-                            
-                        }label: {
-                            Image("google_logo")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 20,height: 20)
-                            Text("Continue with Google")
-                                .font(.customfont(.bold, fontSize: 18))
-                                .foregroundStyle(.white)
-                                .multilineTextAlignment(.center)
-                        }
-                        .frame(minWidth: 0,maxWidth: .infinity,minHeight: 60,maxHeight: 60)
-                        .background(Color(hex: "5383EC"))
-                        .cornerRadius(20)
-                        .padding(.bottom,8)
-
-                     
-                        Button{
-                            
-                        }label: {
-                            Image("fb_logo")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 20,height: 20)
-                            Text("Continue with Facebook")
-                                .font(.customfont(.bold, fontSize: 18))
-                                .foregroundStyle(.white)
-                                .multilineTextAlignment(.center)
-                        }
-                        .frame(minWidth: 0,maxWidth: .infinity,minHeight: 60,maxHeight: 60)
-                        .background(Color(hex: "#4A66AC"))
-                        .cornerRadius(20)
+                    Button{
+                        if let rootVC = self.getRootViewController() {
+                             Task {
+                                 await authViewModel.signInWithGoogle(presentingViewController: rootVC)
+                                 router.navigate(to: .home)
+                             }
+                         } else {
+                             print("Root ViewController not found.")
+                         }
+                        
+                    }label: {
+                        Image("google_logo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 20,height: 20)
+                        Text("Continue with Google")
+                            .font(.customfont(.bold, fontSize: 18))
+                            .foregroundStyle(.white)
+                            .multilineTextAlignment(.center)
+                    }
+                    .frame(minWidth: 0,maxWidth: .infinity,minHeight: 60,maxHeight: 60)
+                    .background(Color(hex: "5383EC"))
+                    .cornerRadius(20)
+                    .padding(.bottom,8)
+                    
+                    
+                    Button{
+                        
+                    }label: {
+                        Image("fb_logo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 20,height: 20)
+                        Text("Continue with Facebook")
+                            .font(.customfont(.bold, fontSize: 18))
+                            .foregroundStyle(.white)
+                            .multilineTextAlignment(.center)
+                    }
+                    .frame(minWidth: 0,maxWidth: .infinity,minHeight: 60,maxHeight: 60)
+                    .background(Color(hex: "#4A66AC"))
+                    .cornerRadius(20)
                     HStack{
                         Spacer()
                         Text("Don't have an account?")
@@ -102,7 +110,13 @@ struct SignInView: View {
                 .frame(width: .screenWidth, alignment: .leading)
                 .padding(.top, .topInsets + .screenWidth)
             }
-            
+            if authViewModel.isLoading {
+                Color.black.opacity(0.7)
+                      .ignoresSafeArea()
+
+                  ProgressView()
+                    .foregroundStyle(.white)
+              }
         }
         .navigationTitle("")
         .navigationBarBackButtonHidden(true)
@@ -114,14 +128,14 @@ struct SignInView: View {
         .sheet(isPresented: $isShowPicker){
             CountryPickerUI(country: $countryObj)
         }
-     
+        
     }
     private var CreateAccountView: some View {
         Button{
             router.navigate(to: .createAccount)
         }label: {
-           Text("Sign Up")
-            .font(.headline)
+            Text("Sign Up")
+                .font(.headline)
         }
     }
     private var loginWithEmail: some View{
