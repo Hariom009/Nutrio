@@ -14,6 +14,58 @@ struct ProductView: View {
                 .ignoresSafeArea()
             VStack{
               ProductImageView()
+                HStack{
+                    VStack(alignment: .leading){
+                        Text("Natural Red Apple")
+                            .font(.headline)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.black)
+                        Text("1kg,Price")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                        
+                    }
+                    Spacer()
+                    Button{
+                        
+                    }label: {
+                        Image(systemName: "heart")
+                            .foregroundStyle(.blue)
+                            .font(.title)
+                    }
+                }
+                HStack{
+                    Button{
+                        
+                    }label:{
+                        Image(systemName: "minus")
+                            .foregroundStyle(.gray)
+                            .font(.headline)
+                    }
+                    Text("1")
+                        .font(.headline)
+                        .foregroundStyle(.black)
+                        .background(
+                            RoundedRectangle(cornerRadius: 18)
+                                .stroke(Color.black, lineWidth: 1)
+                        )
+                    Button{
+                        
+                    }label:{
+                        Image(systemName: "plus")
+                            .foregroundStyle(.gray)
+                            .font(.headline)
+                    }
+                    Spacer()
+                    
+                    Text("$4.99")
+                        .font(.subheadline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.black)
+                }
+                VStack{
+                    
+                }
             }
             .toolbar{
                 ToolbarItem(placement: .topBarLeading){

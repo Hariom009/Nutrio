@@ -13,13 +13,14 @@ struct ProductCard: View {
      var amount: Int
      var price: Double
     var body: some View {
-        
-        VStack(spacing: 20){
+        VStack(spacing: 2){
                 Image("\(imagename)")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 99,height: 79)
-            VStack(alignment: .leading,spacing: 20){
+            
+            Spacer()
+            VStack(alignment: .leading,spacing: 0){
                 VStack(alignment: .leading, spacing: 8){
                     Text(title)
                         .font(.system(size: 16,weight: .semibold))
@@ -45,6 +46,7 @@ struct ProductCard: View {
                 }
             }
         }
+        .padding()
         .frame(width: 173, height: 249)
         .background(
             RoundedRectangle(cornerRadius: 18)

@@ -14,6 +14,7 @@ struct SignInView: View {
     @State var countryObj: Country?
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var router: Router
+    @State private var hasNavigated = false
     var body: some View {
         ZStack{
             Image("bottom_bg")

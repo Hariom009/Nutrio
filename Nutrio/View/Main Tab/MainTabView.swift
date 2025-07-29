@@ -8,6 +8,7 @@
 import SwiftUI
 
 enum Tab {
+    case login
     case home
     case search
     case cart
@@ -23,6 +24,8 @@ struct MainTabView: View {
         VStack{
             Group{
                 switch tab{
+                case .login:
+                    SignInView()
                 case .home:
                     HomeView()
                 case .search:
@@ -44,6 +47,7 @@ struct MainTabView: View {
                 }
             }
         }
+        
     }
 }
 struct CustomMiniTabBar: View {

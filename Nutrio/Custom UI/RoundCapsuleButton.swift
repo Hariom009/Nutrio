@@ -11,8 +11,9 @@ struct RoundCapsuleButton: View {
     var title: String
     var body: some View {
         Text("\(title)")
+            .font(.subheadline)
             .foregroundStyle(.white)
-            .padding(.horizontal,150)
+            .padding(.horizontal,130)
             .padding(.vertical,20)
             .background(
                 RoundedRectangle(cornerRadius: 18)

@@ -25,7 +25,7 @@ struct HomeView: View {
     let BestSelling = [ "Ginger", "Bell Pepper Red", "Egg Chicken Red"]
     let groceries = [Grocery(name: "Pulses", color: .orange), Grocery(name: "Rice", color: .green)]
     var body: some View {
-        ScrollView{
+        ScrollView(showsIndicators: false){
             VStack(spacing: 20) {
                 VStack(spacing: 20){
                     Image("color_logo")
@@ -97,9 +97,7 @@ struct HomeView: View {
                         .font(.customfont(.medium, fontSize: 24))
                     Spacer()
                     Button {
-                        
                         print("See all in Best Selling pressed")
-                        
                     } label: {
                         Text("See all")
                             .foregroundStyle(Color.primaryApp)
