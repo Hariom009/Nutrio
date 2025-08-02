@@ -11,7 +11,7 @@ struct Product: Identifiable, Hashable{
     let image: String
     let ProductType: String
     let subCategory: String
-    var favourite: Bool  // ✅ Newly added
+    var favourite: Bool // ✅ Newly added
 
     init(id: ObjectIdentifier, name: String, price: Double, amount: String, image: String, ProductType: String, subCategory: String, favourite: Bool) {
         self.id = id

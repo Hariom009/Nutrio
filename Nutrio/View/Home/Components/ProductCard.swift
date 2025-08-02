@@ -10,7 +10,7 @@ import SwiftUI
 struct ProductCard: View {
      var imagename: String
      var title:String
-     var amount: Int
+     var amount: String
      var price: Double
     var body: some View {
         VStack(spacing: 2){
@@ -24,7 +24,7 @@ struct ProductCard: View {
                 VStack(alignment: .leading, spacing: 8){
                     Text(title)
                         .font(.system(size: 16,weight: .semibold))
-                    Text("\(amount) pcs, Price")
+                    Text("\(amount), Price")
                         .font(.caption)
                     
                 }
@@ -36,6 +36,7 @@ struct ProductCard: View {
                         
                     }label: {
                         Image(systemName: "plus")
+                            .fontWeight(.bold)
                             .frame(width: 45,height: 45)
                             .foregroundStyle(.white)
                             .background(
@@ -56,5 +57,5 @@ struct ProductCard: View {
 }
 
 #Preview {
-    ProductCard(imagename:"Organic Bananas",title:"Organic Bananas", amount: 7, price:4.99)
+    ProductCard(imagename:"Organic Bananas",title:"Organic Bananas", amount: "7", price:4.99)
 }

@@ -8,11 +8,34 @@
 import SwiftUI
 
 struct CartView: View {
+    @ObservedObject var CartManager: CartManager
     var body: some View {
-        Text("CartView")
+        VStack{
+            ScrollView(showsIndicators: false){
+                ForEach(CartManager.cartItemsAdded,id: \.self){ product in
+                    if product == product {
+                        VStack(alignment: .leading, spacing: 10) {
+        
+                            FavouriteTab(product: product)
+                            
+                            Divider()
+                                .frame(height: 0.5)
+                                .padding(.leading, 30)
+                                .padding(.trailing, 30)
+                                .background(Color.clear)
+                        }
+                    }
+                }
+            }
+            Button{
+                
+            }label: {
+                RoundCapsuleButton(title: "Go to Checkout")
+            }
+        }
     }
 }
 
 #Preview {
-    CartView()
+    CartView(CartManager: CartManager())
 }

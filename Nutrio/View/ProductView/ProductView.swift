@@ -8,76 +8,113 @@
 import SwiftUI
 
 struct ProductView: View {
+    @State var product: Product!
     var body: some View {
+    ScrollView(showsIndicators: false){
         ZStack{
-            Color.clear
-                .ignoresSafeArea()
-            VStack{
-              ProductImageView()
-                HStack{
-                    VStack(alignment: .leading){
-                        Text("Natural Red Apple")
+                VStack(spacing: 36){
+                    Image("\(product.image)")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 330, height: 200)
+                        .padding(.top, 80) // More space at the top
+                       // .padding(.top, 40)
+                    HStack{
+                        VStack(alignment: .leading){
+                            Text("\(product.name)")
+                                .font(.headline)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(.black)
+                            Text("\(product.amount) Price")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            
+                        }
+                        Spacer()
+                        Button{
+                            product.favourite.toggle()
+                        }label: {
+                            Image(systemName: product.favourite ? "heart.fill" : "heart")
+                                .foregroundStyle(.black)
+                                .font(.title)
+                        }
+                    }
+                    HStack(spacing: 24){
+                        Button{
+                            
+                        }label:{
+                            Image(systemName: "minus")
+                                .foregroundStyle(.gray)
+                                .font(.headline)
+                        }
+                        Text("1")
                             .font(.headline)
-                            .fontWeight(.semibold)
                             .foregroundStyle(.black)
-                        Text("1kg,Price")
+                            .padding(.horizontal,16)
+                            .padding(.vertical,12)
+                            .background(
+                                RoundedRectangle(cornerRadius: 14)
+                                    .stroke(Color.black, lineWidth: 0.3)
+                            )
+                        Button{
+                            
+                        }label:{
+                            Image(systemName: "plus")
+                                .foregroundStyle(.green)
+                                .font(.headline)
+                        }
+                        Spacer()
+                        
+                        Text("$\(product.price,specifier: "%.2f")")
+                            .font(.subheadline)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.black)
+                    }
+                    VStack(alignment: .leading){
+                        Text("Product Detail")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.black)
+                        Text("Apples are nutritious. Apples may be good for weight loss. apples may be good for your heart. As part of a healtful and varied diet.")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                         
                     }
-                    Spacer()
-                    Button{
-                        
-                    }label: {
-                        Image(systemName: "heart")
-                            .foregroundStyle(.blue)
-                            .font(.title)
-                    }
-                }
-                HStack{
-                    Button{
-                        
-                    }label:{
-                        Image(systemName: "minus")
-                            .foregroundStyle(.gray)
+                    HStack{
+                        Text("Nutrition")
                             .font(.headline)
+                            .foregroundStyle(.black)
+                            .fontWeight(.semibold)
+                        Spacer()
+                        Text("100 grams")
+                        Button{
+                            
+                        }label: {
+                            Image(systemName: "cheveron.right")
+                                .font(.subheadline)
+                                .foregroundStyle(.black)
+                            
+                        }
                     }
-                    Text("1")
-                        .font(.headline)
-                        .foregroundStyle(.black)
-                        .background(
-                            RoundedRectangle(cornerRadius: 18)
-                                .stroke(Color.black, lineWidth: 1)
-                        )
-                    Button{
-                        
-                    }label:{
-                        Image(systemName: "plus")
-                            .foregroundStyle(.gray)
+                    HStack{
+                        Text("Review")
                             .font(.headline)
+                            .foregroundStyle(.black)
+                            .fontWeight(.semibold)
+                        Spacer()
+                        Text("5 stars")
+                        Button{
+                            
+                        }label: {
+                            Image(systemName: "cheveron.right")
+                                .font(.subheadline)
+                                .foregroundStyle(.black)
+                            
+                        }
                     }
-                    Spacer()
-                    
-                    Text("$4.99")
-                        .font(.subheadline)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.black)
+                    RoundCapsuleButton(title: "Add to Basket")
                 }
-                VStack{
-                    
-                }
-            }
-            .toolbar{
-                ToolbarItem(placement: .topBarLeading){
-                    Button{
-                        
-                    }label:{
-                        Image("back")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 100,height: 100)
-                    }
-                }
+                .padding()
             }
         }
     }

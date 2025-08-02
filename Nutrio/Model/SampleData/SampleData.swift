@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-let sampleProducts: [Product] = [
+var sampleProducts: [Product] = [
     // Soft Drinks
     Product(id: ObjectIdentifier(Product.self), name: "Diet Coca Cola", price: 1.5, amount: "375 ml", image: "diet_coke", ProductType: "Soft Drink", subCategory: "Carbonated", favourite: true),
     Product(id: ObjectIdentifier(Product.self), name: "Pepsi", price: 1.4, amount: "375 ml", image: "Pepsi Can", ProductType: "Soft Drink", subCategory: "Carbonated", favourite: false),

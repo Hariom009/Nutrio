@@ -20,6 +20,7 @@ struct MainTabView: View {
     @State private var tab: Tab = .home
     @EnvironmentObject var router: Router
     @EnvironmentObject var authViewModel: AuthViewModel
+    @StateObject var cartManager = CartManager()
     var body: some View {
         VStack{
             Group{
@@ -31,7 +32,7 @@ struct MainTabView: View {
                 case .search:
                     SearchView()
                 case .cart:
-                    CartView()
+                    CartView(CartManager: cartManager)
                 case .favourite:
                     FavoriteView()
                 case .profile:

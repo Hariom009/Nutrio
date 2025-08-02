@@ -21,8 +21,19 @@ struct HomeView: View {
     @StateObject private var locationManager = LocationManager()
     @State private var showPermissionAlert = false
     let bannerImages = ["banner_top"]
-    let ExclusiveOffer = ["Organic Bananas", "Red Apple","Pepsi Can", "Broiler Chicken"]
-    let BestSelling = [ "Ginger", "Bell Pepper Red", "Egg Chicken Red"]
+    let ExclusiveOffer:[Product] = [
+        Product(id: ObjectIdentifier(Product.self), name: "Organic Bananas", price: 1.0, amount: "12 pcs", image: "Organic Bananas", ProductType: "Fruit", subCategory: "Fresh Fruit", favourite: true),
+        Product(id: ObjectIdentifier(Product.self), name: "Apple Grape Juice", price: 3.0, amount: "1 pcs", image: "juice_apple_grape", ProductType: "Juice", subCategory: "Fruit Juice", favourite: false),
+        Product(id: ObjectIdentifier(Product.self), name: "Chicken Breast", price: 6.0, amount: "1 kg", image: "Broiler Chicken", ProductType: "Meat", subCategory: "chicken", favourite: true)
+    ]
+    
+    let BestSelling : [Product] = [
+        Product(id: ObjectIdentifier(Product.self), name: "Egg Noodles", price: 1.8, amount: "1 pcs", image: "egg_noodles", ProductType: "Grocery", subCategory: "Noodles", favourite: true),
+        Product(id: ObjectIdentifier(Product.self), name: "Egg Pasta", price: 1.8, amount: "1 pcs", image: "egg_pasta", ProductType: "Grocery", subCategory: "Noodles", favourite: false),
+        Product(id: ObjectIdentifier(Product.self), name: "Bell Pepper Red", price: 1.99, amount: "250 gm", image: "Bell Pepper Red", ProductType: "Grocery", subCategory: "vegetable", favourite: true),
+        Product(id: ObjectIdentifier(Product.self), name: "Ginger", price: 1.8, amount: "250 gm", image: "Ginger", ProductType: "Grocery", subCategory: "vegetable", favourite: false)
+    ]
+    
     let groceries = [Grocery(name: "Pulses", color: .orange), Grocery(name: "Rice", color: .green)]
     var body: some View {
         ScrollView(showsIndicators: false){
@@ -82,7 +93,12 @@ struct HomeView: View {
                     // Here we add some prelisted products using product card
                     HStack(spacing: 8){
                         ForEach(ExclusiveOffer, id: \.self){ item in
-                            ProductCard(imagename: "\(item)", title: "\(item)", amount: 7, price: 4.99)
+                            NavigationLink{
+                              ProductView(product: item)
+                            }label:{
+                                ProductCard(imagename: item.image, title: item.name, amount: item.amount, price: item.price)
+                                    .foregroundStyle(.black)
+                            }
                         }
                     }
                     
@@ -109,7 +125,12 @@ struct HomeView: View {
                     // Here we add some prelisted products using product card
                     HStack(spacing: 8){
                         ForEach(BestSelling, id: \.self){ item in
-                            ProductCard(imagename: "\(item)", title: "\(item)", amount: 7, price: 4.99)
+                            NavigationLink{
+                             ProductView(product: item)
+                            }label:{
+                                ProductCard(imagename: "\(item.image)", title: "\(item.name)", amount: item.amount, price: item.price)
+                                    .foregroundStyle(.black)
+                            }
                         }
                     }
                     

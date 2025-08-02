@@ -14,15 +14,18 @@ struct FavoriteView: View {
                 ForEach(sampleProducts,id: \.self){ product in
                     if product.favourite {
                         VStack(alignment: .leading, spacing: 10) {
-                            FavouriteTab(product: product)
+                            NavigationLink{
+                              ProductView(product: product)
+                            }label:{
+                                FavouriteTab(product: product)
+                                    .foregroundStyle(.black)
+                            }
 
                             Divider()
                                 .frame(height: 0.5)
                                 .padding(.leading, 30)
                                 .padding(.trailing, 30)
                                 .background(Color.clear)
-
-
                         }
                     }
 
