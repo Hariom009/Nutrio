@@ -11,6 +11,7 @@ final class AuthViewModel: ObservableObject{
     @Published var currentUser: User? // apna wala user
     @Published var isError : Bool = false
     @Published var isLoading: Bool = false
+    @Published var authChecked = false
     private let auth = Auth.auth()
     private let firestore = Firestore.firestore()
     
@@ -18,12 +19,19 @@ final class AuthViewModel: ObservableObject{
         setupAuthStateListener()
     }
     // No need to login again and again it handles the logged in user till user signs Out or delete Account
+    
     private func setupAuthStateListener() {
         Auth.auth().addStateDidChangeListener { _, user in
             self.userSession = user
+            
+            Task {
+                if let uid = user?.uid {
+                    await self.fetchUser(by: uid)
+                }
+                self.authChecked = true
+            }
         }
     }
-    
     func createUser(email: String, fullName: String, password: String) async {
         do{
             let authResult = try await auth.createUser(withEmail: email, password: password)
@@ -134,4 +142,5 @@ final class AuthViewModel: ObservableObject{
         
         isLoading = false
     }
+    
 }

@@ -15,42 +15,55 @@ enum Tab {
     case favourite
     case profile
 }
-
 struct MainTabView: View {
     @State private var tab: Tab = .home
     @EnvironmentObject var router: Router
     @EnvironmentObject var authViewModel: AuthViewModel
     @StateObject var cartManager = CartManager()
+    
     var body: some View {
-        VStack{
-            Group{
-                switch tab{
-                case .login:
+        VStack {
+            if !authViewModel.authChecked {
+                ProgressView("Checking authentication...")
+            } else {
+                if authViewModel.userSession == nil || authViewModel.currentUser == nil {
+                    // Not authenticated → force login tab
                     SignInView()
-                case .home:
-                    HomeView()
-                case .search:
-                    SearchView()
-                case .cart:
-                    CartView(CartManager: cartManager)
-                case .favourite:
-                    FavoriteView()
-                case .profile:
-                    ProfileView()
+                } else {
+                    VStack {
+                        Group {
+                            switch tab {
+                            case .login:
+                                SignInView()
+                            case .home:
+                                HomeView()
+                            case .search:
+                                SearchView()
+                            case .cart:
+                                CartView(CartManager: cartManager)
+                            case .favourite:
+                                FavoriteView()
+                            case .profile:
+                                ProfileView()
+                            }
+                        }
+                        if tab != .login {
+                            CustomMiniTabBar(selectedTab: $tab)
+                        }
+                    }
+                    .onChange(of: tab) { newTab in
+                        if newTab == .profile {
+                            if let uid = authViewModel.userSession?.uid {
+                                Task { await authViewModel.fetchUser(by: uid) }
+                            }
+                        }
+                    }
                 }
             }
-            CustomMiniTabBar(selectedTab: $tab)
         }
-        .onChange(of: tab) { newTab in
-            if newTab == .profile {
-                if let uid = authViewModel.userSession?.uid {
-                    Task { await authViewModel.fetchUser(by: uid) }
-                }
-            }
-        }
-        
     }
 }
+
 struct CustomMiniTabBar: View {
     @Binding var selectedTab: Tab
     

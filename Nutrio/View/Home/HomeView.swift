@@ -19,6 +19,7 @@ struct HomeView: View {
     @StateObject var HomeVM = HomeViewModel.shared
     @EnvironmentObject var router: Router
     @StateObject private var locationManager = LocationManager()
+    @EnvironmentObject var authViewModel: AuthViewModel
     
     @State private var showPermissionAlert = false
     let bannerImages = ["banner_top"]
@@ -110,6 +111,7 @@ struct HomeView: View {
                             }label:{
                                 ProductCard(imagename: "\(item.image)", title: "\(item.name)", amount: item.amount, price: item.price)
                                     .foregroundStyle(.black)
+                                    .environmentObject(authViewModel)
                             }
                         }
                     }
@@ -147,7 +149,11 @@ struct HomeView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-        
+//        .onAppear {
+//            if authViewModel.userSession == nil{
+//                router.navigate(to: .loginhome)
+//            }
+//        }
         .alert("Location Permission Needed", isPresented: $showPermissionAlert) {
             Button("Open Settings") {
                 if let url = URL(string: UIApplication.openSettingsURLString),

@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Firebase
+import FirebaseFirestore
 
 struct User: Codable{
     let uid: String
@@ -22,14 +24,9 @@ struct User: Codable{
     }
 }
 
-struct Favourite:Identifiable{
+struct UserFavorite: Identifiable, Codable {
+    @DocumentID var id: String?
     let userId: String
-    let id: String
-    let name: String
-    let price: Double
-    let amount: String
-    let image: String
-    let ProductType: String
-    let subCategory: String
-    let favourite: Bool
+    let productId: String
+    let dateAdded: Date
 }

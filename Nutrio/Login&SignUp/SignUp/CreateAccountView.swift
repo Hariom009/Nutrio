@@ -66,7 +66,7 @@ struct CreateAccountView: View {
                 ProductManagerFirebase.shared.uploadBestSellingProducts()
             }
             if !authViewModel.isError{
-                router.navigate(to: .profile)
+                router.navigate(to: .home)
             }
         }label: {
             Text("Create Account")

@@ -50,7 +50,7 @@ struct WelcomeView: View {
     }
     private var StartButton: some View{
         Button {
-            if authViewModel.userSession == nil{
+            if authViewModel.userSession == nil || authViewModel.currentUser == nil{
                 router.navigate(to: .loginhome)
             }else {
                 router.navigate(to: .home)

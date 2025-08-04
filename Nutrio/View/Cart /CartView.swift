@@ -16,7 +16,7 @@ struct CartView: View {
                     if product == product {
                         VStack(alignment: .leading, spacing: 10) {
         
-                            FavouriteTab(product: product)
+                          //  FavouriteTab(product: product)
                             
                             Divider()
                                 .frame(height: 0.5)

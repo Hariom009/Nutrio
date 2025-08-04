@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ProductView: View {
     @State var product: Product!
+    @State private var isFavorite = false
+    @EnvironmentObject var authViewModel: AuthViewModel
     var body: some View {
     ScrollView(showsIndicators: false){
         ZStack{
@@ -31,13 +33,14 @@ struct ProductView: View {
                             
                         }
                         Spacer()
-                        Button{
-                            product.favourite.toggle()
-                        }label: {
-                            Image(systemName: product.favourite ? "heart.fill" : "heart")
+                        Button {
+                        // Add the product in the favourites of user...
+                        } label: {
+                            Image(systemName: isFavorite ? "heart.fill" : "heart")
                                 .foregroundStyle(.black)
                                 .font(.title)
                         }
+
                     }
                     HStack(spacing: 24){
                         Button{
@@ -90,7 +93,7 @@ struct ProductView: View {
                         Button{
                             
                         }label: {
-                            Image(systemName: "cheveron.right")
+                            Image(systemName: "chevron.right")
                                 .font(.subheadline)
                                 .foregroundStyle(.black)
                             
@@ -106,7 +109,7 @@ struct ProductView: View {
                         Button{
                             
                         }label: {
-                            Image(systemName: "cheveron.right")
+                            Image(systemName: "chevron.right")
                                 .font(.subheadline)
                                 .foregroundStyle(.black)
                             
