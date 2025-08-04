@@ -14,12 +14,12 @@ struct GroceryCard: View {
     var body: some View {
         VStack{
             HStack(spacing:16){
-                Image("\(image)")
+                Image("\(image.lowercased())")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 90, height: 90)
                    
-                Text("Pulses")
+                Text("\(text)")
                     .font(.custom("Gilroy.medium", size: 18))
                     .fontWeight(.semibold)
                     .foregroundStyle(.black)

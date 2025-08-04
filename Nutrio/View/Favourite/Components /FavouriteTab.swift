@@ -49,7 +49,3 @@ struct FavouriteTab: View {
         .padding()
     }
 }
-
-#Preview {
-    FavouriteTab(product: Product(id: ObjectIdentifier(Product.self), name: "Organic Bananas", price: 4.99, amount: "12 pcs", image: "Organic Bananas", ProductType: "Fruit", subCategory: "Fresh Fruit", favourite: true))
-}

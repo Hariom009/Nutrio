@@ -8,29 +8,30 @@
 import SwiftUI
 
 struct FavoriteView: View {
+    
     var body: some View {
         VStack{
-            ScrollView(showsIndicators: false){
-                ForEach(sampleProducts,id: \.self){ product in
-                    if product.favourite {
-                        VStack(alignment: .leading, spacing: 10) {
-                            NavigationLink{
-                              ProductView(product: product)
-                            }label:{
-                                FavouriteTab(product: product)
-                                    .foregroundStyle(.black)
-                            }
-
-                            Divider()
-                                .frame(height: 0.5)
-                                .padding(.leading, 30)
-                                .padding(.trailing, 30)
-                                .background(Color.clear)
-                        }
-                    }
-
-                }
-            }
+//            ScrollView(showsIndicators: false){
+//                ForEach(sampleProducts,id: \.self){ product in
+//                    if product.favourite {
+//                        VStack(alignment: .leading, spacing: 10) {
+//                            NavigationLink{
+//                              ProductView(product: product)
+//                            }label:{
+//                                FavouriteTab(product: product)
+//                                    .foregroundStyle(.black)
+//                            }
+//
+//                            Divider()
+//                                .frame(height: 0.5)
+//                                .padding(.leading, 30)
+//                                .padding(.trailing, 30)
+//                                .background(Color.clear)
+//                        }
+//                    }
+//
+//                }
+//            }
             Button{
                 
             }label: {
@@ -40,6 +41,3 @@ struct FavoriteView: View {
     }
 }
 
-#Preview {
-    FavoriteView()
-}

@@ -61,6 +61,9 @@ struct CreateAccountView: View {
                     password: password
                 )
                 await authViewModel.login(email :email,password: password)
+                ProductManagerFirebase.shared.uploadSampleProducts()
+                ProductManagerFirebase.shared.uploadOnSaleProducsts()
+                ProductManagerFirebase.shared.uploadBestSellingProducts()
             }
             if !authViewModel.isError{
                 router.navigate(to: .profile)

@@ -93,6 +93,9 @@ struct LoginView: View {
         Button{
             Task{
                 await authViewModel.login(email: loginVM.txtEmail, password: loginVM.txtPassword)
+                ProductManagerFirebase.shared.uploadSampleProducts()
+                ProductManagerFirebase.shared.uploadOnSaleProducsts()
+                ProductManagerFirebase.shared.uploadBestSellingProducts()
             }
             if !authViewModel.isError{
                 router.navigate(to: .home)
