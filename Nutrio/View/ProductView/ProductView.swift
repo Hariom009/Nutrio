@@ -34,12 +34,27 @@ struct ProductView: View {
                         }
                         Spacer()
                         Button {
-                        // Add the product in the favourites of user...
+                            guard let userID = authViewModel.userSession?.uid else { return }
+
+                            if !isFavorite {
+                                FavouriteManager.shared.addFavourite(product: product, userID: userID)
+                                isFavorite = true
+                            } else {
+                                guard let productId = product.id else { return }
+                                Task{
+                                    FavouriteManager.shared.removeProductFromFavourites(userID: userID, productID: productId) { success in
+                                        if success {
+                                            isFavorite = false
+                                        }
+                                    }
+                                }
+                            }
                         } label: {
                             Image(systemName: isFavorite ? "heart.fill" : "heart")
                                 .foregroundStyle(.black)
                                 .font(.title)
                         }
+
 
                     }
                     HStack(spacing: 24){
@@ -120,7 +135,15 @@ struct ProductView: View {
                 .padding()
             }
         }
+    .onAppear{
+        guard let userID = authViewModel.userSession?.uid,
+              let productID = product.id
+        else {
+         return
+        }
+        isFavorite = FavouriteManager.shared.checkIfFavourite(productId: productID, userID: userID)
     }
+  }
 }
 
 #Preview {

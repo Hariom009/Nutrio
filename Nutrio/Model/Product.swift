@@ -4,7 +4,7 @@ import FirebaseFirestore
 
 struct Product: Identifiable, Codable, Hashable {
     @DocumentID var id: String? // Let Firestore generate the ID if needed
-
+    let productuid : UUID
     let name: String
     let price: Double
     let amount: String
@@ -14,8 +14,9 @@ struct Product: Identifiable, Codable, Hashable {
     var favourite: Bool
 
     // Optional init if needed (but Swift will synthesize one automatically)
-    init(id: String? = nil, name: String, price: Double, amount: String, image: String, ProductType: String, subCategory: String, favourite: Bool) {
+    init(id: String? = nil,productuid: UUID ,name: String, price: Double, amount: String, image: String, ProductType: String, subCategory: String, favourite: Bool) {
         self.id = id
+        self.productuid = productuid
         self.name = name
         self.price = price
         self.amount = amount

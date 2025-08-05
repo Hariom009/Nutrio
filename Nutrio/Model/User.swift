@@ -23,10 +23,3 @@ struct User: Codable{
         return ""
     }
 }
-
-struct UserFavorite: Identifiable, Codable {
-    @DocumentID var id: String?
-    let userId: String
-    let productId: String
-    let dateAdded: Date
-}
