@@ -160,5 +160,5 @@ public class ProductManagerFirebase: ObservableObject {
             try? doc.data(as: Product.self)
         }
     }
-
+   
 }

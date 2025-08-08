@@ -9,9 +9,14 @@ import Foundation
 import Firebase
 import FirebaseFirestore
 
+//struct UserFavorite: Identifiable, Codable {
+//    @DocumentID var id: String?
+//    let userId: String
+//    var products : [Product]
+//}
+
 struct UserFavorite: Identifiable, Codable {
     @DocumentID var id: String?
     let userId: String
-    var products : [Product]
-    let dateAdded: Date
+    let product: Product
 }

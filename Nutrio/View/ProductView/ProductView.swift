@@ -12,6 +12,7 @@ struct ProductView: View {
     @State private var isFavorite = false
     @EnvironmentObject var authViewModel: AuthViewModel
     var body: some View {
+    
     ScrollView(showsIndicators: false){
         ZStack{
                 VStack(spacing: 36){
@@ -35,19 +36,14 @@ struct ProductView: View {
                         Spacer()
                         Button {
                             guard let userID = authViewModel.userSession?.uid else { return }
-
-                            if !isFavorite {
-                                FavouriteManager.shared.addFavourite(product: product, userID: userID)
+                            if !isFavorite{
+                               FavouriteManager.shared.addFavourite(product, userID: userID)
                                 isFavorite = true
-                            } else {
-                                guard let productId = product.id else { return }
+                            }else{
                                 Task{
-                                    FavouriteManager.shared.removeProductFromFavourites(userID: userID, productID: productId) { success in
-                                        if success {
-                                            isFavorite = false
-                                        }
-                                    }
+                                    await FavouriteManager.shared.deleteFavourite(product, userID: userID)
                                 }
+                                isFavorite = false
                             }
                         } label: {
                             Image(systemName: isFavorite ? "heart.fill" : "heart")
@@ -135,13 +131,12 @@ struct ProductView: View {
                 .padding()
             }
         }
-    .onAppear{
-        guard let userID = authViewModel.userSession?.uid,
-              let productID = product.id
-        else {
-         return
+    .onAppear {
+        Task {
+            if let userID = authViewModel.currentUser?.uid {
+                isFavorite = await FavouriteManager.shared.checkProductIsFavourite(product, userID: userID)
+            }
         }
-        isFavorite = FavouriteManager.shared.checkIfFavourite(productId: productID, userID: userID)
     }
   }
 }
