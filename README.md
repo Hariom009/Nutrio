@@ -1,3 +1,8 @@
+
+
+https://github.com/user-attachments/assets/966a484e-1d9d-4222-8056-b4ba82b17d6d
+
+
 🥦 Nutrio — Your Smart Grocery Buddy
 Welcome to Nutrio, a modern, delightful, and high-performance online grocery app designed to make your shopping experience smarter and healthier. From curated weekly essentials to spontaneous snack cravings — Nutrio delivers simplicity, speed, and style right to your screen. 🍎📦
 
@@ -33,7 +38,6 @@ Swift-native persistence without external DB dependencies
 
 6. 🌙 Dark Mode Support
 Native dark mode integration
-
 
 🧰 Tech Stack
 
