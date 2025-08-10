@@ -22,6 +22,10 @@
 	</array>
 	<key>UILaunchScreen</key>
 	<dict>
+		<key>UIColorName</key>
+		<string>LaunchScreenBackground</string>
+		<key>UIImageName</key>
+		<string>spalshlogo</string>
 		<key>UILaunchScreen</key>
 		<true/>
 	</dict>

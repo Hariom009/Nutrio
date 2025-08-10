@@ -6,6 +6,7 @@ struct CategoryExploreTab: Identifiable, Hashable {
     var title: String
     var image: String
     var color: Color
+    var subCategory: String
 }
 
 struct SearchView: View {
@@ -15,13 +16,13 @@ struct SearchView: View {
     @FocusState var isFocused:Bool
 
     let Categories: [CategoryExploreTab] = [
-        CategoryExploreTab(title: "Fresh Fruits & Vegetables", image: "frash_fruits", color: .green.opacity(0.5)),
-        CategoryExploreTab(title: "Cooking Oil & Ghee", image: "cooking_oil", color: .yellow.opacity(0.5)),
-        CategoryExploreTab(title: "Meat & Fish", image: "meat_fish", color: .orange.opacity(0.5)),
-        CategoryExploreTab(title: "Bakery & Snacks", image: "bakery_snacks", color: .blue.opacity(0.5)),
-        CategoryExploreTab(title: "Dairy & Eggs", image: "dairy_eggs", color: .purple.opacity(0.5)),
-        CategoryExploreTab(title: "Beveraes", image: "beverages", color: .red.opacity(0.5)),
-        CategoryExploreTab(title: "Fruit Juices", image: "frash_fruits", color: .pink.opacity(0.5))
+        CategoryExploreTab(title: "Vegetables", image: "frash_fruits", color: .green.opacity(0.5), subCategory: "Vegetable"),
+        CategoryExploreTab(title: "Cooking Oil & Ghee", image: "cooking_oil", color: .yellow.opacity(0.5), subCategory : "Oil"),
+        CategoryExploreTab(title: "Meat & Fish", image: "meat_fish", color: .orange.opacity(0.5), subCategory: "chicken"),
+        CategoryExploreTab(title: "Bakery & Snacks", image: "bakery_snacks", color: .blue.opacity(0.5),subCategory: "Noodles"),
+        CategoryExploreTab(title: "Dairy & Eggs", image: "dairy_eggs", color: .purple.opacity(0.5), subCategory: "eggs"),
+        CategoryExploreTab(title: "Beveraes", image: "beverages", color: .red.opacity(0.5), subCategory: "Carbonated"),
+        CategoryExploreTab(title: "Fruit Juices", image: "frash_fruits", color: .pink.opacity(0.5), subCategory: "Fruit Juice")
     ]
 
     var body: some View {
@@ -86,7 +87,12 @@ struct SearchView: View {
                             GridItem(.flexible(), spacing: 16)
                         ], spacing: 16) {
                             ForEach(Categories, id: \.id) { category in
-                                CategoryTab(categoryTab: category)
+                                NavigationLink {
+                                    GroceryFullView(subCategory: category.subCategory, title: category.title)
+                                } label: {
+                                    CategoryTab(categoryTab: category)
+                                }
+                                .foregroundStyle(.black)
                             }
                         }
                         .padding(.horizontal, 8)

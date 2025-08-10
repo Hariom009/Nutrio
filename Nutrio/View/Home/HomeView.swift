@@ -33,12 +33,12 @@ struct HomeView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 30,height: 30)
-                    HStack {
-                        Image("location")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 20, height: 19)
-                    }
+//                    HStack {
+//                        Image("location")
+//                            .resizable()
+//                            .scaledToFit()
+//                            .frame(width: 20, height: 19)
+//                    }
                 }
             }
             
@@ -59,11 +59,10 @@ struct HomeView: View {
                     Text("Exclusive offers")
                         .font(.customfont(.medium, fontSize: 24))
                     Spacer()
-                    Button {
-                        
-                        print("See all in exclusive offers pressed")
-                        
-                    } label: {
+                    
+                    NavigationLink{
+                       ExclusiveOfferFullView()
+                    }label: {
                         Text("See all")
                             .foregroundStyle(Color.primaryApp)
                             .font(.custom("Gilroy", size: 16))
@@ -93,9 +92,9 @@ struct HomeView: View {
                     Text("Best Selling")
                         .font(.customfont(.medium, fontSize: 24))
                     Spacer()
-                    Button {
-                        print("See all in Best Selling pressed")
-                    } label: {
+                    NavigationLink{
+                       BestSellingFullView()
+                    }label: {
                         Text("See all")
                             .foregroundStyle(Color.primaryApp)
                             .font(.custom("Gilroy", size: 16))

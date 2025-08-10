@@ -28,7 +28,3 @@ struct CategoryTab: View {
         )
     }
 }
-
-#Preview {
-    CategoryTab(categoryTab: CategoryExploreTab(title: "Fresh Fruits & Vegetables", image: "frash_fruits", color: .green.opacity(0.5)))
-}

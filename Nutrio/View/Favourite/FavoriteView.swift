@@ -42,9 +42,11 @@ struct FavoriteView: View {
             }
         }
         .onAppear {
-            guard let userID = authViewModel.currentUser?.uid else { return }
-            Task {
-                await favouriteManager.loadFavourites(userId: userID)
+            withAnimation{
+                guard let userID = authViewModel.currentUser?.uid else { return }
+                Task {
+                    await favouriteManager.loadFavourites(userId: userID)
+                }
             }
         }
     }
